@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="web.chatting.com.DAO.ChatMapper">
+	<insert id="submitChat" parameterType="Chat">
+		INSERT INTO chat(chatname, chatcontent, chattime) VALUES
+		(
+			#{chatname}
+		  , #{chatcontent}
+		  ,  to_char(sysdate, 'YYYY-MM-DD HH24:MI:SS') 
+		)
+	</insert>
+	
+	<select id="selectChat" resultType="Chat">
+		SELECT * 
+		FROM (SELECT * FROM chat ORDER BY chattime desc)
+		WHERE rownum = 1
+	</select>
+
+</mapper>
